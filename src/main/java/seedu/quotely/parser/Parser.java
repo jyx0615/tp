@@ -85,7 +85,7 @@ public class Parser {
          * add exception handling in parser
          */
         fullCommand = fullCommand.trim();
-        String command = fullCommand.split(" ")[0];
+        String command = fullCommand.split(" ")[0].toLowerCase();
         logger.fine("Extracted command: '" + command + "'");
 
         String arguments = "";
@@ -257,10 +257,6 @@ public class Parser {
             if (fileMatcher.find() && fileMatcher.group(1).trim().length() > 0) {
                 filename = fileMatcher.group(1).trim();
             }
-            // remove any extension if user included it
-            if (filename.contains(".")) {
-                filename = filename.substring(0, filename.lastIndexOf('.'));
-            }
             logger.info("Successfully parsed export quote command for quote: " + quote.getQuoteName());
             return new seedu.quotely.command.ExportQuoteCommand(quote, filename);
         } catch (QuotelyException e) {
@@ -348,7 +344,7 @@ public class Parser {
             // parse price
             try {
                 price = Double.parseDouble(priceStr);
-                if (price < 0) {
+                if (Double.isNaN(price) || price < 0) {
                     throw new QuotelyException(QuotelyException.ErrorType.INVALID_NUMBER_FORMAT);
                 }
                 if (price > MAX_PRICE) {
@@ -377,7 +373,7 @@ public class Parser {
             if (taxRateStr != null) {
                 try {
                     taxRate = Double.parseDouble(taxRateStr);
-                    if (taxRate < 0) {
+                    if (Double.isNaN(taxRate) || taxRate < 0) {
                         throw new QuotelyException(QuotelyException.ErrorType.INVALID_NUMBER_FORMAT);
                     }
                     if (taxRate > MAX_TAX_RATE) {

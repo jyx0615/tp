@@ -329,9 +329,7 @@ Filename rules (recommended)
 - Input: the CLI accepts an optional `f/FILE_NAME` token. The command forwards the supplied base name to the writer.
 - Normalisation steps the writer should perform:
   1. Trim whitespace from the supplied name.
-  2. If the name ends with `.pdf` (any case), remove the extension so the writer can consistently append `.pdf`.
-  3. Reject or strip path traversal segments (`..`) and disallow path separators (`/` or `\`) unless the writer explicitly supports writing to paths. If we accept a path, validate it carefully and document the behaviour. (future work)
-  4. Replace or remove characters that are illegal on common filesystems. A practical whitelist is: letters, digits, space, hyphen (-), underscore (_), and dot (.). Example safe regex: `^[A-Za-z0-9 _\-\.]+$` (apply trimming and fallback for empty names). (future work)
+  2. Replace `..`, `.`, `/`, and `\` in the filename by `_` to prevent insecure filepath.
 - Final name: append `.pdf` and write to the destination. By default the current working directory is used; existing files are overwritten.
 
 Developer TODOs (prioritised)
@@ -397,7 +395,7 @@ The export feature generates a PDF quotation from a Quote object. It is intended
 #### Overview
 
 - Triggered by the `export` command. When executed, the application delegates formatting and file creation to the PDF writer component.
-- Current implementation writes a file named `invoice.pdf` to the working directory (see implementation notes below).
+- Current implementation writes a pdf quotation to the working directory (see implementation notes below).
 
 #### User-facing behaviour
 
@@ -441,7 +439,7 @@ The sequence diagram below illustrates the steps taken when the `export` command
 
 ![Export sequence diagram](./diagrams/sequence/export.png)
 
-When the export completes, the application generates a PDF file named `quotation.pdf` in the working directory. The PDF uses an quotation-style layout that includes header information and an itemised table showing each item's description, quantity, unit price, tax, and computed amounts (subtotal, tax, and grand total).
+When the export completes, the application generates a PDF file in the working directory. The PDF uses an quotation-style layout that includes header information and an itemised table showing each item's description, quantity, unit price, tax, and computed amounts (subtotal, tax, and grand total).
 
 Preview of the generated PDF:
 
