@@ -5,7 +5,7 @@ participant ":Storage" as Storage
 participant ":JsonSerializer" as Serializer
 participant "appData1:ApplicationData" as AppData1
 participant "appData2:ApplicationData" as AppData2
-participant ":Parser" as Parser
+participant ":QuotelyParser" as Parser
 participant "cmd:Command" as Command
 database "quotely.json" as DB
 

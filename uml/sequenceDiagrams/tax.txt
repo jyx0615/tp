@@ -3,75 +3,75 @@ hide circle
 skinparam classAttributeIconSize 0
 
 actor Actor
-participant ":Quotely"
-participant ":QuotelyState"
-participant ":Parser"
-participant ":QuoteList"
-participant ":AddQuoteCommand"
-participant ":AddItemCommand"
-participant ":Quote"
+participant ":Quotely" as Quotely
+participant ":QuotelyState" as QuotelyState
+participant ":QuotelyParser" as Parser
+participant ":AddQuoteCommand" as AddQuoteCommand
+participant ":AddItemCommand" as AddItemCommand
+participant ":QuoteList" as QuoteList
+participant ":Quote" as Quote
 
-Actor -> ":Quotely": main()
+Actor -> Quotely: main()
 
-":Quotely" -> ":QuotelyState" **: getInstance()
-activate ":QuotelyState" #Gold
+Quotely -> QuotelyState **: getInstance()
+activate QuotelyState #Gold
 return state:QuotelyState
 
-Actor -> ":Quotely" ++ #FFBBBB: "quote n/01 c/Tom"
+Actor -> Quotely ++ #FFBBBB: "quote n/01 c/Tom"
 
-":Quotely" -> ":Parser" ++ #Green: parse("quote n/01 c/Tom")
+Quotely -> Parser ++ #Green: parse("quote n/01 c/Tom")
 
 
-":Parser" -> ":QuotelyState" ++ #Gold: isInsideQuote()
+Parser -> QuotelyState ++ #Gold: isInsideQuote()
 return false
 
-":Parser" -> ":AddQuoteCommand" **: new AddQuoteCommand("01", "Tom")
-activate ":AddQuoteCommand" #technology
+Parser -> AddQuoteCommand **: new AddQuoteCommand("01", "Tom")
+activate AddQuoteCommand #technology
 return command:AddQuoteCommand
 
 return command:AddQuoteCommand
 
-":Quotely" -> ":AddQuoteCommand" ++ #technology: execute(ui, quoteList, companyName, state)
+Quotely -> AddQuoteCommand ++ #technology: execute(ui, quoteList, companyName, state)
 
-":AddQuoteCommand" -> ":Quote" **: new Quote("01", "Tom")
-activate ":Quote" #mistyrose
+AddQuoteCommand -> Quote **: new Quote("01", "Tom")
+activate Quote #mistyrose
 return quote1:Quote
 
-":AddQuoteCommand" -> ":QuoteList" ++ #DarkSalmon: addQuote(quote1)
+AddQuoteCommand -> QuoteList ++ #DarkSalmon: addQuote(quote1)
 return
 
-":AddQuoteCommand" -> ":QuotelyState" ++ #Gold: setInsideQuote(quote1)
+AddQuoteCommand -> QuotelyState ++ #Gold: setInsideQuote(quote1)
 return
 
 return
 
 return Success message (quote added)
 
-destroy ":AddQuoteCommand"
+destroy AddQuoteCommand
 
-Actor -> ":Quotely" ++ #FFBBBB: "add i/Chair p/45.00 q/10 t/5.00"
+Actor -> Quotely ++ #FFBBBB: "add i/Chair p/45.00 q/10 t/5.00"
 
-":Quotely" -> ":Parser" ++ #Green: parse("add i/Chair p/45.00 q/10 t/5.00")
+Quotely -> Parser ++ #Green: parse("add i/Chair p/45.00 q/10 t/5.00")
 
-":Parser" -> ":Parser" ++ #lightblue: parseAddItemCommand()
+Parser -> Parser ++ #lightblue: parseAddItemCommand()
 return
 
-":Parser" -> ":Parser" ++ #lightblue: getQuoteFromStateAndName(null, state, quoteList)
-":Parser" -> ":QuotelyState" ++ #Gold: getQuoteReference()
+Parser -> Parser ++ #lightblue: getQuoteFromStateAndName(null, state, quoteList)
+Parser -> QuotelyState ++ #Gold: getQuoteReference()
 return quote1:Quote
 
 return quote1:Quote
 
-":Parser" -> ":AddItemCommand" **: new AddItemCommand("Chair", quote1, 45.00, 10, 5.00)
-activate ":AddItemCommand" #skyblue
+Parser -> AddItemCommand **: new AddItemCommand("Chair", quote1, 45.00, 10, 5.00)
+activate AddItemCommand #skyblue
 return command:AddItemCommand
 
 return command:AddItemCommand
 
-":Quotely" -> ":AddItemCommand" ++ #skyblue: execute(ui, quoteList, companyName, state)
+Quotely -> AddItemCommand ++ #skyblue: execute(ui, quoteList, companyName, state)
 
-":AddItemCommand" -> ":Quote" ++ #mistyrose: addItem("Chair", 45.00, 10, 5.00)
-":Quote" -> ":Item" **: new Item(...)
+AddItemCommand -> Quote ++ #mistyrose: addItem("Chair", 45.00, 10, 5.00)
+Quote -> ":Item" **: new Item(...)
 activate ":Item" #slateblue
 return item:Item
 return
@@ -79,6 +79,6 @@ return
 
 return Success message (item added)
 
-destroy ":AddItemCommand"
+destroy AddItemCommand
 
 @enduml

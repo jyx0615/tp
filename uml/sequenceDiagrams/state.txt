@@ -3,29 +3,33 @@ hide circle
 skinparam classAttributeIconSize 0
 
 actor Actor
-participant ":Quotely"
-participant ":QuotelyState"
-participant ":Parser"
-participant ":QuoteList"
+participant ":Quotely" as Quotely
+participant ":QuotelyState" as QuotelyState
+participant ":QuotelyParser" as Parser
+participant ":QuoteList" as QuoteList
 
-Actor -> ":Quotely": main()
+Actor -> Quotely: main()
 
-":Quotely" -> ":QuotelyState" **: getInstance()
-activate ":QuotelyState" #Gold
+Quotely -> QuotelyState **: getInstance()
+activate QuotelyState #Gold
 return state:QuotelyState
 
-Actor -> ":Quotely" ++ #FFBBBB: "add n/01 c/Tom"
+Quotely -> Parser **: getInstance()
+activate Parser #Lightblue
+return parser:Parser
 
-":Quotely" -> ":Parser" ++ #Lightblue: parse("add n/01 c/Tom")
-":Parser" -> ":QuotelyState" ++ #Gold: isInsideQuote()
+Actor -> Quotely ++ #FFBBBB: "add n/01 c/Tom"
+
+Quotely -> Parser ++ #Lightblue: parse("add n/01 c/Tom")
+Parser -> QuotelyState ++ #Gold: isInsideQuote()
 return isInsideQuote:boolean
 return command:AddQuoteCommand
 
-":Quotely" -> ":QuoteList" ++ #Green : executed AddCommand()
+Quotely -> QuoteList ++ #Green : executed AddCommand()
 return
 
 return 
-deactivate ":Quotely"
+deactivate Quotely
 
 @enduml
 

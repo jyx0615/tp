@@ -5,26 +5,27 @@ skinparam classAttributeIconSize 0
 title Parser Class Diagram
 
 package "parser" {
-    class Parser {
-        - logger : Logger
-        - ADD_QUOTE_COMMAND_PATTERN : String
-        - QUOTENAME_ARG_PATTERN : String
-        - EXPORT_QUOTENAME_ARG_PATTERN : String
-        - FILENAME_ARG_PATTERN : String
-        - REGISTER_COMMAND_PATTERN : String
-        - ADD_ITEM_COMMAND_PATTERN : String
-        - DELETE_ITEM_COMMAND_PATTERN : String
-        + parse(fullCommand : String, state : QuotelyState, quoteList : QuoteList) : Command
-        - parseAddQuoteCommand(arguments : String, state : QuotelyState) : Command
-        - parseNavigateCommand(arguments : String, state : QuotelyState, quoteList : QuoteList) : Command
-        - parseDeleteQuoteCommand(arguments : String, state : QuotelyState, quoteList : QuoteList) : Command
-        - parseExportCommand(arguments : String, state : QuotelyState, quoteList : QuoteList) : Command
-        - parseRegisterCommand(arguments : String) : Command
-        - parseAddItemCommand(arguments : String, state : QuotelyState, quoteList : QuoteList) : Command
-        - parseDeleteItemCommand(arguments : String, state : QuotelyState, quoteList : QuoteList) : Command
-        - parseCalculateTotalCommand(arguments : String, state : QuotelyState, quoteList : QuoteList) : Command
-        - parseFinishQuoteCommand(state : QuotelyState) : Command
-        - getQuoteFromStateAndName(quoteName : String, state : QuotelyState, quoteList : QuoteList) : Quote
+    class QuotelyParser {
+        - logger
+        - instance: QuotelyParser
+        + getInstance(): QuotelyParser
+    }
+
+    abstract class Parser {
+        + parse(arguments : String, state : QuotelyState, quoteList : QuoteList): Command
+    }
+
+    class AddItemParser {
+
+    }
+
+    class DeleteQuoteParser {
+
+    }
+
+    class ParserUtil {
+        + isValidName(s: String): boolean
+        + getQuoteFromStateAndName(String quoteName, QuotelyState state, QuoteList quoteList): Quote
     }
 }
 
@@ -45,6 +46,12 @@ package "util" {
 package "exception" {
     class QuotelyException
 }
+
+AddItemParser -|> Parser
+DeleteQuoteParser -|> Parser
+
+QuotelyParser -- DeleteQuoteParser
+QuotelyParser -- AddItemParser
 
 LoggerConfig <-- Parser: uses for logging <
 QuotelyException <- Parser: throws <

@@ -21,7 +21,7 @@ package data as Data {
 }
 
 package parser as ParserComp {
-  class Parser
+  class QuotelyParser
 }
 
 package storage as StorageComp {
@@ -41,7 +41,7 @@ package main as Main {
   class Quotely
 }
 
-Parser <- Quotely
+QuotelyParser <- Quotely
 Ui <-- Quotely
 Quotely -> JsonSerializer
 Quotely --> LoggerConfig
@@ -50,7 +50,7 @@ Quotely -> CompanyName
 Quotely -> QuoteList
 Quotely -> QuotelyState
 
-Parser -> Command
+QuotelyParser -> Command
 
 Command ..> QuoteList
 Command ..> CompanyName
