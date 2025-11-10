@@ -11,7 +11,7 @@ import seedu.quotely.util.LoggerConfig;
 import java.util.logging.Logger;
 
 public class AddItemCommand extends Command {
-    private static final String COMMAND_WORD = "addItem";
+    public static final String COMMAND_WORD = "add";
     private static final Logger logger = LoggerConfig.getLogger(AddItemCommand.class);
     private Quote quote;
     private String itemName;

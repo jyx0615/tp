@@ -11,7 +11,7 @@ import seedu.quotely.util.LoggerConfig;
 import java.util.logging.Logger;
 
 public class DeleteQuoteCommand extends Command {
-    private static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = "unquote";
     private static final Logger logger = LoggerConfig.getLogger(DeleteQuoteCommand.class);
     private Quote quote;
 

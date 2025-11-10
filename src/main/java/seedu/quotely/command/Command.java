@@ -7,7 +7,7 @@ import seedu.quotely.data.QuotelyState;
 import seedu.quotely.exception.QuotelyException;
 
 public abstract class Command {
-    protected String commandWord;
+    public String commandWord;
 
     public Command(String commandWord) {
         this.commandWord = commandWord;

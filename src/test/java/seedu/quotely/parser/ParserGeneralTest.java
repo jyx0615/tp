@@ -21,7 +21,7 @@ public class ParserGeneralTest {
         QuotelyState state = QuotelyState.getInstance();
         QuoteList quoteList = new QuoteList();
         assertThrows(QuotelyException.class, () -> {
-            Parser.parse("unknowncommand", state, quoteList);
+            QuotelyParser.getInstance().parse("unknowncommand", state, quoteList);
         });
     }
 
@@ -30,7 +30,7 @@ public class ParserGeneralTest {
         QuotelyState state = QuotelyState.getInstance();
         QuoteList quoteList = new QuoteList();
         try {
-            Command command = Parser.parse("exit", state, quoteList);
+            Command command = QuotelyParser.getInstance().parse("exit", state, quoteList);
             assertTrue(command instanceof seedu.quotely.command.ExitCommand);
         } catch (Exception e) {
             assert false : "Exception should not be thrown";

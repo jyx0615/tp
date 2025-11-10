@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 public class ShowQuotesCommand extends Command {
-    private static final String COMMAND_WORD = "show";
+    public static final String COMMAND_WORD = "show";
     private static final Logger logger = LoggerConfig.getLogger(ShowQuotesCommand.class);
 
     public ShowQuotesCommand() {

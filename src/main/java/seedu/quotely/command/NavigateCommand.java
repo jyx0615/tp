@@ -11,7 +11,7 @@ import seedu.quotely.util.LoggerConfig;
 import java.util.logging.Logger;
 
 public class NavigateCommand extends Command {
-    private static final String COMMAND_WORD = "nav";
+    public static final String COMMAND_WORD = "nav";
     private static final Logger logger = LoggerConfig.getLogger(NavigateCommand.class);
     private Quote quote;
 

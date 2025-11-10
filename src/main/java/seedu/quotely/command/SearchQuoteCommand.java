@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 public class SearchQuoteCommand extends Command {
-    private static final String COMMAND_WORD = "search";
+    public static final String COMMAND_WORD = "search";
     private static final Logger logger = LoggerConfig.getLogger(SearchQuoteCommand.class);
     private String quoteName;
 

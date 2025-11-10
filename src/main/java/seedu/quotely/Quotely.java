@@ -5,7 +5,7 @@ import seedu.quotely.data.CompanyName;
 import seedu.quotely.data.QuoteList;
 import seedu.quotely.data.QuotelyState;
 import seedu.quotely.exception.QuotelyException;
-import seedu.quotely.parser.Parser;
+import seedu.quotely.parser.QuotelyParser;
 import seedu.quotely.ui.Ui;
 import seedu.quotely.util.LoggerConfig;
 
@@ -26,6 +26,7 @@ public class Quotely {
     private CompanyName companyName;
     private QuoteList quoteList;
     private QuotelyState state;
+    private QuotelyParser parser;
 
     // Fields for storage
     private Storage storage;
@@ -40,6 +41,7 @@ public class Quotely {
     public Quotely() {
         ui = Ui.getInstance();
         state = QuotelyState.getInstance();
+        parser = QuotelyParser.getInstance();
         companyName = new CompanyName("Default");
 
         // Initialize storage and load data
@@ -117,7 +119,7 @@ public class Quotely {
                 ui.showLine();
                 logger.finer("Read successful, parsing command: ...");
                 // parser throws QuotelyException if parse invalid
-                Command command = Parser.parse(fullCommand, state, quoteList);
+                Command command = parser.parse(fullCommand, state, quoteList);
                 logger.finer("Parse successful, executing command...");
                 // execute throws QuotelyException if data mutation fails
                 command.execute(ui, quoteList, companyName, state);

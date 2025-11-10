@@ -27,9 +27,9 @@ public class ParserItemCommandTest {
         state.setInsideQuote(q);
         quoteList.addQuote(q);
         try {
-            Command command = Parser.parse("add i/Item1 p/10.0 q/2", state, quoteList);
+            Command command = QuotelyParser.getInstance().parse("add i/Item1 p/10.0 q/2", state, quoteList);
             assertTrue(command instanceof seedu.quotely.command.AddItemCommand);
-            Command command2 = Parser.parse("add i/Item2 p/9999.99 q/999 t/200", state, quoteList);
+            Command command2 = QuotelyParser.getInstance().parse("add i/Item2 p/9999.99 q/999 t/200", state, quoteList);
             assertTrue(command2 instanceof seedu.quotely.command.AddItemCommand);
         } catch (Exception e) {
             assert false : "Exception should not be thrown";
@@ -44,9 +44,10 @@ public class ParserItemCommandTest {
         state.setOutsideQuote();
         quoteList.addQuote(q);
         try {
-            Command command = Parser.parse("add i/Item 1 n/quote 1 p/10.0 q/2", state, quoteList);
+            Command command = QuotelyParser.getInstance().parse("add i/Item 1 n/quote 1 p/10.0 q/2", state, quoteList);
             assertTrue(command instanceof seedu.quotely.command.AddItemCommand);
-            Command command2 = Parser.parse("add i/Item2 n/quote 1 p/9999.99 q/999 t/200", state, quoteList);
+            Command command2 = QuotelyParser.getInstance().parse("add i/Item2 n/quote 1 p/9999.99 q/999 t/200", state,
+                    quoteList);
             assertTrue(command2 instanceof seedu.quotely.command.AddItemCommand);
         } catch (Exception e) {
             assert false : "Exception should not be thrown";
@@ -61,34 +62,35 @@ public class ParserItemCommandTest {
         state.setInsideQuote(q);
         quoteList.addQuote(q);
         assertThrows(QuotelyException.class, () -> {
-            Parser.parse("add i/Item1 p/invalidprice q/2", state, quoteList);
+            QuotelyParser.getInstance().parse("add i/Item1 p/invalidprice q/2", state, quoteList);
         });
         assertThrows(QuotelyException.class, () -> {
-            Parser.parse("add i/loooooooooooooooooooooooooooooooooongName p/1 q/2", state, quoteList);
+            QuotelyParser.getInstance().parse("add i/loooooooooooooooooooooooooooooooooongName p/1 q/2", state,
+                    quoteList);
         });
         assertThrows(QuotelyException.class, () -> {
-            Parser.parse("add i/!nv@l!#$%Name p/1 q/2", state, quoteList);
+            QuotelyParser.getInstance().parse("add i/!nv@l!#$%Name p/1 q/2", state, quoteList);
         });
         assertThrows(QuotelyException.class, () -> {
-            Parser.parse("add p/invalidprice q/2", state, quoteList);
+            QuotelyParser.getInstance().parse("add p/invalidprice q/2", state, quoteList);
         });
         assertThrows(QuotelyException.class, () -> {
-            Parser.parse("add p/10000.00 q/2", state, quoteList);
+            QuotelyParser.getInstance().parse("add p/10000.00 q/2", state, quoteList);
         });
         assertThrows(QuotelyException.class, () -> {
-            Parser.parse("add i/Item1 p/-20 q/2", state, quoteList);
+            QuotelyParser.getInstance().parse("add i/Item1 p/-20 q/2", state, quoteList);
         });
         assertThrows(QuotelyException.class, () -> {
-            Parser.parse("add i/Item1 p/2 q/2.5", state, quoteList);
+            QuotelyParser.getInstance().parse("add i/Item1 p/2 q/2.5", state, quoteList);
         });
         assertThrows(QuotelyException.class, () -> {
-            Parser.parse("add i/Item1 p/2 q/1000", state, quoteList);
+            QuotelyParser.getInstance().parse("add i/Item1 p/2 q/1000", state, quoteList);
         });
         assertThrows(QuotelyException.class, () -> {
-            Parser.parse("add i/Item1 p/2 q/1 t/-1", state, quoteList);
+            QuotelyParser.getInstance().parse("add i/Item1 p/2 q/1 t/-1", state, quoteList);
         });
         assertThrows(QuotelyException.class, () -> {
-            Parser.parse("add i/Item1 p/2 q/1 t/200.1", state, quoteList);
+            QuotelyParser.getInstance().parse("add i/Item1 p/2 q/1 t/200.1", state, quoteList);
         });
     }
 
@@ -104,17 +106,16 @@ public class ParserItemCommandTest {
 
         try {
             for (int i = 0; i < 30; i++) {
-                Command command = Parser.parse("add i/Item p/1.23 q/1 t/10.00", state, quoteList);
+                Command command = QuotelyParser.getInstance().parse("add i/Item p/1.23 q/1 t/10.00", state, quoteList);
                 command.execute(ui, quoteList, companyName, state);
             }
             assertThrows(QuotelyException.class, () -> {
-                Command command = Parser.parse("add i/Item p/1.23 q/1 t/10.00", state, quoteList);
+                Command command = QuotelyParser.getInstance().parse("add i/Item p/1.23 q/1 t/10.00", state, quoteList);
                 command.execute(ui, quoteList, companyName, state);
             });
         } catch (QuotelyException e) {
             assert false : "Exception should not be thrown";
         }
-
 
     }
 
@@ -127,7 +128,7 @@ public class ParserItemCommandTest {
         quoteList.addQuote(q);
         q.addItem("Item1", 10.0, 4, 0);
         try {
-            Command command = Parser.parse("delete i/Item1", state, quoteList);
+            Command command = QuotelyParser.getInstance().parse("delete i/Item1", state, quoteList);
             assertTrue(command instanceof seedu.quotely.command.DeleteItemCommand);
         } catch (Exception e) {
             assert false : "Exception should not be thrown";
@@ -143,7 +144,7 @@ public class ParserItemCommandTest {
         quoteList.addQuote(q);
         q.addItem("Item1", 10.0, 4, 0);
         try {
-            Command command = Parser.parse("delete i/Item1 n/quote 1", state, quoteList);
+            Command command = QuotelyParser.getInstance().parse("delete i/Item1 n/quote 1", state, quoteList);
             assertTrue(command instanceof seedu.quotely.command.DeleteItemCommand);
         } catch (Exception e) {
             assert false : "Exception should not be thrown";
@@ -158,7 +159,7 @@ public class ParserItemCommandTest {
         state.setOutsideQuote();
         quoteList.addQuote(q);
         assertThrows(QuotelyException.class, () -> {
-            Parser.parse("add n/invalid quote i/Item1 p/10.0 q/2", state, quoteList);
+            QuotelyParser.getInstance().parse("add n/invalid quote i/Item1 p/10.0 q/2", state, quoteList);
         });
     }
 
@@ -170,7 +171,7 @@ public class ParserItemCommandTest {
         state.setOutsideQuote();
         quoteList.addQuote(q);
         assertThrows(QuotelyException.class, () -> {
-            Parser.parse("add n/quote 1 i/Item1 p/-0.3 q/2", state, quoteList);
+            QuotelyParser.getInstance().parse("add n/quote 1 i/Item1 p/-0.3 q/2", state, quoteList);
         });
     }
 
@@ -182,7 +183,7 @@ public class ParserItemCommandTest {
         state.setOutsideQuote();
         quoteList.addQuote(q);
         assertThrows(QuotelyException.class, () -> {
-            Parser.parse("add n/quote 1 i/Item1 p/12.2 q/-10", state, quoteList);
+            QuotelyParser.getInstance().parse("add n/quote 1 i/Item1 p/12.2 q/-10", state, quoteList);
         });
     }
 
@@ -195,7 +196,7 @@ public class ParserItemCommandTest {
         quoteList.addQuote(q);
         q.addItem("Item1", 10.0, 4, 0);
         assertThrows(QuotelyException.class, () -> {
-            Parser.parse("delete i/Item1", state, quoteList);
+            QuotelyParser.getInstance().parse("delete i/Item1", state, quoteList);
         });
     }
 
@@ -208,7 +209,7 @@ public class ParserItemCommandTest {
         quoteList.addQuote(q);
         q.addItem("Item1", 10.0, 4, 0);
         assertThrows(QuotelyException.class, () -> {
-            Parser.parse("delete i/invalid item", state, quoteList);
+            QuotelyParser.getInstance().parse("delete i/invalid item", state, quoteList);
         });
     }
 
@@ -221,7 +222,7 @@ public class ParserItemCommandTest {
         quoteList.addQuote(q);
         q.addItem("Item1", 10.0, 4, 0);
         assertThrows(QuotelyException.class, () -> {
-            Parser.parse("delete", state, quoteList);
+            QuotelyParser.getInstance().parse("delete", state, quoteList);
         });
     }
 }

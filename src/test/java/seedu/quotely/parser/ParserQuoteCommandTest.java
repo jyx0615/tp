@@ -27,7 +27,7 @@ public class ParserQuoteCommandTest {
         state.setInsideQuote(q);
 
         try {
-            Command command = Parser.parse("finish", state, quoteList);
+            Command command = QuotelyParser.getInstance().parse("finish", state, quoteList);
             assertTrue(command instanceof FinishQuoteCommand);
         } catch (Exception e) {
             assert false : "Exception should not be thrown";
@@ -40,7 +40,7 @@ public class ParserQuoteCommandTest {
         QuotelyState state = QuotelyState.getInstance();
         state.setOutsideQuote();
         assertThrows(QuotelyException.class, () -> {
-            Parser.parse("finish", state, quoteList);
+            QuotelyParser.getInstance().parse("finish", state, quoteList);
         });
     }
 
@@ -50,7 +50,7 @@ public class ParserQuoteCommandTest {
         QuotelyState state = QuotelyState.getInstance();
         state.setOutsideQuote();
         try {
-            Command command = Parser.parse("quote n/Quote Name c/Customer Name", state, quoteList);
+            Command command = QuotelyParser.getInstance().parse("quote n/Quote Name c/Customer Name", state, quoteList);
             assertTrue(command instanceof seedu.quotely.command.AddQuoteCommand);
         } catch (Exception e) {
             assert false : "Exception should not be thrown";
@@ -63,7 +63,7 @@ public class ParserQuoteCommandTest {
         QuotelyState state = QuotelyState.getInstance();
         state.setOutsideQuote();
         assertThrows(QuotelyException.class, () -> {
-            Parser.parse("quote n/Quote Name", state, quoteList);
+            QuotelyParser.getInstance().parse("quote n/Quote Name", state, quoteList);
         });
     }
 
@@ -73,13 +73,13 @@ public class ParserQuoteCommandTest {
         QuotelyState state = QuotelyState.getInstance();
         state.setOutsideQuote();
         assertThrows(QuotelyException.class, () -> {
-            Parser.parse("quote c/Customer Name", state, quoteList);
+            QuotelyParser.getInstance().parse("quote c/Customer Name", state, quoteList);
         });
         assertThrows(QuotelyException.class, () -> {
-            Parser.parse("quote c/CustomerLooooooooooooooooooooooooooooong", state, quoteList);
+            QuotelyParser.getInstance().parse("quote c/CustomerLooooooooooooooooooooooooooooong", state, quoteList);
         });
         assertThrows(QuotelyException.class, () -> {
-            Parser.parse("quote c/Customer!@#$%%$!!!", state, quoteList);
+            QuotelyParser.getInstance().parse("quote c/Customer!@#$%%$!!!", state, quoteList);
         });
     }
 
@@ -89,10 +89,10 @@ public class ParserQuoteCommandTest {
         QuotelyState state = QuotelyState.getInstance();
         state.setOutsideQuote();
         assertThrows(QuotelyException.class, () -> {
-            Parser.parse("quote c/CustomerLooooooooooooooooooooooooooooong", state, quoteList);
+            QuotelyParser.getInstance().parse("quote c/CustomerLooooooooooooooooooooooooooooong", state, quoteList);
         });
         assertThrows(QuotelyException.class, () -> {
-            Parser.parse("quote c/Customer!@#$%%$!!!", state, quoteList);
+            QuotelyParser.getInstance().parse("quote c/Customer!@#$%%$!!!", state, quoteList);
         });
     }
 
@@ -104,7 +104,7 @@ public class ParserQuoteCommandTest {
         Quote q = new Quote("quote 1", "customer 1");
         quoteList.addQuote(q);
         try {
-            Command command = Parser.parse("unquote n/quote 1", state, quoteList);
+            Command command = QuotelyParser.getInstance().parse("unquote n/quote 1", state, quoteList);
             assertTrue(command instanceof seedu.quotely.command.DeleteQuoteCommand);
         } catch (Exception e) {
             assert false : "Exception should not be thrown";
@@ -119,7 +119,7 @@ public class ParserQuoteCommandTest {
         state.setInsideQuote(q);
         quoteList.addQuote(q);
         try {
-            Command command = Parser.parse("unquote", state, quoteList);
+            Command command = QuotelyParser.getInstance().parse("unquote", state, quoteList);
             assertTrue(command instanceof seedu.quotely.command.DeleteQuoteCommand);
         } catch (Exception e) {
             assert false : "Exception should not be thrown";
@@ -132,10 +132,10 @@ public class ParserQuoteCommandTest {
         state.setOutsideQuote();
         QuoteList quoteList = new QuoteList();
         assertThrows(QuotelyException.class, () -> {
-            Parser.parse("unquote n/invalid quote", state, quoteList);
+            QuotelyParser.getInstance().parse("unquote n/invalid quote", state, quoteList);
         });
         assertThrows(QuotelyException.class, () -> {
-            Parser.parse("unquote", state, quoteList);
+            QuotelyParser.getInstance().parse("unquote", state, quoteList);
         });
     }
 
@@ -147,7 +147,7 @@ public class ParserQuoteCommandTest {
         state.setInsideQuote(q);
         quoteList.addQuote(q);
         try {
-            Command command = Parser.parse("unquote", state, quoteList);
+            Command command = QuotelyParser.getInstance().parse("unquote", state, quoteList);
             assertTrue(command instanceof seedu.quotely.command.DeleteQuoteCommand);
         } catch (Exception e) {
             assert false : "Exception should not be thrown";
@@ -162,7 +162,7 @@ public class ParserQuoteCommandTest {
         state.setOutsideQuote();
         quoteList.addQuote(q);
         try {
-            Command command = Parser.parse("unquote n/quote 1", state, quoteList);
+            Command command = QuotelyParser.getInstance().parse("unquote n/quote 1", state, quoteList);
             assertTrue(command instanceof seedu.quotely.command.DeleteQuoteCommand);
         } catch (Exception e) {
             assert false : "Exception should not be thrown";
@@ -177,7 +177,7 @@ public class ParserQuoteCommandTest {
         state.setOutsideQuote();
         quoteList.addQuote(q);
         assertThrows(QuotelyException.class, () -> {
-            Parser.parse("unquote n/invalid quote", state, quoteList);
+            QuotelyParser.getInstance().parse("unquote n/invalid quote", state, quoteList);
         });
     }
 
@@ -189,7 +189,7 @@ public class ParserQuoteCommandTest {
         state.setOutsideQuote();
         quoteList.addQuote(q);
         assertThrows(QuotelyException.class, () -> {
-            Parser.parse("unquote", state, quoteList);
+            QuotelyParser.getInstance().parse("unquote", state, quoteList);
         });
     }
 
@@ -201,7 +201,7 @@ public class ParserQuoteCommandTest {
         state.setInsideQuote(q);
         quoteList.addQuote(q);
         assertThrows(QuotelyException.class, () -> {
-            Parser.parse("unquote wrong format", state, quoteList);
+            QuotelyParser.getInstance().parse("unquote wrong format", state, quoteList);
         });
     }
 
@@ -213,7 +213,7 @@ public class ParserQuoteCommandTest {
         state.setOutsideQuote();
         quoteList.addQuote(q);
         try {
-            Command command = Parser.parse("nav n/quote 1", state, quoteList);
+            Command command = QuotelyParser.getInstance().parse("nav n/quote 1", state, quoteList);
             assertTrue(command instanceof NavigateCommand);
         } catch (Exception e) {
             assert false : "Exception should not be thrown";
@@ -228,7 +228,7 @@ public class ParserQuoteCommandTest {
         state.setOutsideQuote();
         quoteList.addQuote(q);
         try {
-            Command command = Parser.parse("    nav   n/quote 1", state, quoteList);
+            Command command = QuotelyParser.getInstance().parse("    nav   n/quote 1", state, quoteList);
             assertTrue(command instanceof NavigateCommand);
         } catch (Exception e) {
             assert false : "Exception should not be thrown";
@@ -243,7 +243,7 @@ public class ParserQuoteCommandTest {
         state.setOutsideQuote();
         quoteList.addQuote(q);
         try {
-            Command command = Parser.parse("    nav   n/     quote 1", state, quoteList);
+            Command command = QuotelyParser.getInstance().parse("    nav   n/     quote 1", state, quoteList);
             assertTrue(command instanceof NavigateCommand);
         } catch (Exception e) {
             assert false : "Exception should not be thrown";
@@ -258,7 +258,7 @@ public class ParserQuoteCommandTest {
         state.setOutsideQuote();
         quoteList.addQuote(q);
         try {
-            Command command = Parser.parse("nav main", state, quoteList);
+            Command command = QuotelyParser.getInstance().parse("nav main", state, quoteList);
             assertTrue(command instanceof NavigateCommand);
         } catch (Exception e) {
             assert false : "Exception should not be thrown";
@@ -273,7 +273,7 @@ public class ParserQuoteCommandTest {
         state.setOutsideQuote();
         quoteList.addQuote(q);
         assertThrows(QuotelyException.class, () -> {
-            Parser.parse("nav n/no quote", state, quoteList);
+            QuotelyParser.getInstance().parse("nav n/no quote", state, quoteList);
         });
     }
 
@@ -285,7 +285,7 @@ public class ParserQuoteCommandTest {
         state.setOutsideQuote();
         quoteList.addQuote(q);
         assertThrows(QuotelyException.class, () -> {
-            Parser.parse("nav", state, quoteList);
+            QuotelyParser.getInstance().parse("nav", state, quoteList);
         });
     }
 
@@ -297,7 +297,7 @@ public class ParserQuoteCommandTest {
         state.setOutsideQuote();
         quoteList.addQuote(q);
         try {
-            Command command = Parser.parse("export n/quote 1", state, quoteList);
+            Command command = QuotelyParser.getInstance().parse("export n/quote 1", state, quoteList);
             assertTrue(command instanceof seedu.quotely.command.ExportQuoteCommand);
         } catch (Exception e) {
             assert false : "Exception should not be thrown";
@@ -312,7 +312,7 @@ public class ParserQuoteCommandTest {
         state.setInsideQuote(q);
         quoteList.addQuote(q);
         try {
-            Command command = Parser.parse("export", state, quoteList);
+            Command command = QuotelyParser.getInstance().parse("export", state, quoteList);
             assertTrue(command instanceof seedu.quotely.command.ExportQuoteCommand);
         } catch (Exception e) {
             assert false : "Exception should not be thrown";
@@ -327,7 +327,7 @@ public class ParserQuoteCommandTest {
         state.setOutsideQuote();
         quoteList.addQuote(q);
         assertThrows(QuotelyException.class, () -> {
-            Parser.parse("export", state, quoteList);
+            QuotelyParser.getInstance().parse("export", state, quoteList);
         });
     }
 
@@ -339,7 +339,7 @@ public class ParserQuoteCommandTest {
         state.setOutsideQuote();
         quoteList.addQuote(q);
         assertThrows(QuotelyException.class, () -> {
-            Parser.parse("export n/invalid quote", state, quoteList);
+            QuotelyParser.getInstance().parse("export n/invalid quote", state, quoteList);
         });
     }
 }

@@ -11,7 +11,7 @@ import seedu.quotely.util.LoggerConfig;
 import java.util.logging.Logger;
 
 public class CalculateTotalCommand extends Command {
-    private static final String COMMAND_WORD = "total";
+    public static final String COMMAND_WORD = "total";
     private static final Logger logger = LoggerConfig.getLogger(CalculateTotalCommand.class);
     private Quote quote;
 
