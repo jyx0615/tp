@@ -15,6 +15,7 @@ public class RegisterCommandParser implements Parser {
     private static final java.util.logging.Logger logger =
             java.util.logging.Logger.getLogger(RegisterCommandParser.class.getName());
     
+    @Override
     public RegisterCommand parse(String arguments, QuotelyState state, 
         QuoteList quoteList) throws QuotelyException {
         logger.fine("parseRegisterCommand called with arguments: " + arguments);

@@ -13,6 +13,7 @@ public class SearchCommandParser implements Parser {
     private static final java.util.logging.Logger logger =
             java.util.logging.Logger.getLogger(SearchCommandParser.class.getName());
 
+    @Override
     public SearchQuoteCommand parse(String arguments, QuotelyState state,
         QuoteList quoteList) throws QuotelyException {
         logger.fine("parseSearchCommand called");

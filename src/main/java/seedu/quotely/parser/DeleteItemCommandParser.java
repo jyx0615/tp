@@ -15,6 +15,7 @@ public class DeleteItemCommandParser implements Parser {
     private static final java.util.logging.Logger logger =
             java.util.logging.Logger.getLogger(DeleteItemCommandParser.class.getName());
     
+    @Override
     public DeleteItemCommand parse(String arguments, QuotelyState state,
         QuoteList quoteList) throws QuotelyException {
         logger.fine("parseDeleteItemCommand called with arguments: " + arguments);

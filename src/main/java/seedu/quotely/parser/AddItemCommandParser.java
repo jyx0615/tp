@@ -3,6 +3,8 @@ package seedu.quotely.parser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.xml.sax.Parser;
+
 import seedu.quotely.command.AddItemCommand;
 import seedu.quotely.data.Quote;
 import seedu.quotely.data.QuoteList;
@@ -22,6 +24,7 @@ public class AddItemCommandParser implements Parser {
     private static final java.util.logging.Logger logger =
             java.util.logging.Logger.getLogger(AddItemCommandParser.class.getName());
     
+    @Override
     public AddItemCommand parse(String arguments, QuotelyState state, 
         QuoteList quoteList) throws QuotelyException {
         logger.fine("parseAddItemCommand called with arguments: " + arguments);

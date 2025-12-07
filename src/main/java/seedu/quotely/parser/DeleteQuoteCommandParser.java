@@ -14,7 +14,8 @@ import static seedu.quotely.parser.ParserConstant.QUOTENAME_ARG_PATTERN;
 public class DeleteQuoteCommandParser implements Parser {
     private static final java.util.logging.Logger logger =
             java.util.logging.Logger.getLogger(DeleteQuoteCommandParser.class.getName());
-    
+            
+    @Override
     public DeleteQuoteCommand parse(String arguments, QuotelyState state,
         QuoteList quoteList) throws QuotelyException {
         logger.fine("parseDeleteQuoteCommand called with arguments: " + arguments);

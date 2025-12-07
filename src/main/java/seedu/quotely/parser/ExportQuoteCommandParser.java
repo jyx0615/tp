@@ -18,6 +18,7 @@ public class ExportQuoteCommandParser implements Parser {
     private static final java.util.logging.Logger logger =
             java.util.logging.Logger.getLogger(ExportQuoteCommandParser.class.getName());
 
+    @Override
     public ExportQuoteCommand parse(String arguments, QuotelyState state,
                                               QuoteList quoteList) throws QuotelyException {
         logger.fine("parseExportCommand called with arguments: " + arguments);

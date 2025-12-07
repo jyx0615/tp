@@ -8,7 +8,8 @@ import seedu.quotely.exception.QuotelyException;
 public class FinishQuoteCommandParser implements Parser {
     private static final java.util.logging.Logger logger =
             java.util.logging.Logger.getLogger(FinishQuoteCommandParser.class.getName());
-    
+
+    @Override
     public FinishQuoteCommand parse(String arguments, QuotelyState state, QuoteList quoteList)
             throws QuotelyException {
         logger.fine("parseFinishQuoteCommand called");

@@ -15,6 +15,7 @@ public class TotalCommandParser implements Parser {
     private static final java.util.logging.Logger logger =
             java.util.logging.Logger.getLogger(TotalCommandParser.class.getName());
     
+    @Override
     public CalculateTotalCommand parse(String arguments, QuotelyState state,  
         QuoteList quoteList) throws QuotelyException {
         logger.fine("parseCalculateTotalCommand called with arguments: " + arguments);

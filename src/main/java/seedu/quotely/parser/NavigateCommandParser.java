@@ -15,6 +15,7 @@ public class NavigateCommandParser implements Parser {
     private static final java.util.logging.Logger logger =
             java.util.logging.Logger.getLogger(NavigateCommandParser.class.getName());
 
+    @Override
     public NavigateCommand parse(String arguments, QuotelyState state, QuoteList quoteList)
             throws QuotelyException {
         logger.fine("parseNavigateCommand called with arguments: " + arguments);

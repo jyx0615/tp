@@ -16,6 +16,7 @@ public class AddQuoteCommandParser implements Parser {
     private static final java.util.logging.Logger logger =
             java.util.logging.Logger.getLogger(AddQuoteCommandParser.class.getName());
 
+    @Override
     public AddQuoteCommand parse(String arguments, QuotelyState state, QuoteList quoteList)
             throws QuotelyException {
         logger.fine("parseAddQuoteCommand called with arguments: " + arguments);
