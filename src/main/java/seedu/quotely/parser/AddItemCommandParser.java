@@ -3,8 +3,6 @@ package seedu.quotely.parser;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.xml.sax.Parser;
-
 import seedu.quotely.command.AddItemCommand;
 import seedu.quotely.data.Quote;
 import seedu.quotely.data.QuoteList;

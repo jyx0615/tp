@@ -6,6 +6,5 @@ import seedu.quotely.data.QuoteList;
 import seedu.quotely.exception.QuotelyException;
 
 public interface Parser {
-    public Command parse(String arguments, QuotelyState state, 
-        QuoteList quoteList) throws QuotelyException;
+    Command parse(String arguments, QuotelyState state, QuoteList quoteList) throws QuotelyException;
 }
